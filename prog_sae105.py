@@ -46,5 +46,5 @@ def gene_lat_lon(liste) : #on creer une foncction avec un paramettre pour le cha
 ##############################################################################
 
 
-shearchip()
-gene_lat_lon(listead)
+print(gene_lat_lon(shearchip())) #on affiche la fonction de generation latitude longitude avec la fonction ip  en paramètre
+
