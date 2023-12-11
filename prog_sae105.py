@@ -44,6 +44,7 @@ def gene_lat_lon(liste) : #on creer une foncction avec un paramettre pour le cha
         lati=values['lat'] #dans l'ati on assosie la valeur lat du fichier json
         longi=values['lon'] #dans longi on associe la valeur lon du fichier json
         tab.append([ip,lati,longi])#dans le tableau on rajoute les 3 valeur precedent
+        print("generation du tableau en cours...\n")
     print('voici un tableau avec pour chauqe partie l ip la lat et la long : \n')
     print([ip,lati,longi]) 
     return(tab)
