@@ -7,7 +7,7 @@ import json #pour utiliser un fichier json
 import time #pour faire des pause sinon l'api oskour
 
 #import du proxy
-import os #pour utiliser le proxy
+import os #pour utiliser le proxy  
 os.environ["HTTP_PROXY"] = "http://cache.univ-pau.fr:3128" 
 os.environ["HTTPS_PROXY"] = "https://cache.univ-pau.fr:3128"
 
@@ -24,7 +24,7 @@ def shearchip():
     for elt in f: #pour tout element dans f
         a=elt.split(" ") #a est egalau element separer par un espace
         listead.append(a[0]) #on ajoute a la liste trouver précédement les element en premier que l'on a separer
-    print("la liste ip est :")
+    print("la liste des ip est : \n")
     print(listead) #affichage de la liste ip mise a jours
     return listead #renvois la valeur en dehor de la fontion
 
@@ -44,8 +44,8 @@ def gene_lat_lon(liste) : #on creer une foncction avec un paramettre pour le cha
         lati=values['lat'] #dans l'ati on assosie la valeur lat du fichier json
         longi=values['lon'] #dans longi on associe la valeur lon du fichier json
         tab.append([ip,lati,longi])#dans le tableau on rajoute les 3 valeur precedent
-        print('voici l ip la lat et la long :')
-        print([ip,lati,longi]) 
+    print('voici un tableau avec pour chauqe partie l ip la lat et la long : \n')
+    print([ip,lati,longi]) 
     return(tab)
 
 
