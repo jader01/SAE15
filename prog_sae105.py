@@ -11,7 +11,7 @@ import os #pour utiliser le proxy
 os.environ["HTTP_PROXY"] = "http://cache.univ-pau.fr:3128" 
 os.environ["HTTPS_PROXY"] = "https://cache.univ-pau.fr:3128"
 
-#import folium
+import folium #import de la librairie permetant de générer la carte
 
 
 #####################################################################################
@@ -19,7 +19,7 @@ os.environ["HTTPS_PROXY"] = "https://cache.univ-pau.fr:3128"
 ####################################################################################
 
 def shearchip():
-    f = open("controltower_reduit.log", "r") #on ouvre le fichier en 1 et on "r" lis le fichier
+    f = open("controller_reduit.log", "r") #on ouvre le fichier en 1 et on "r" lis le fichier
     listead=[] #on creer une liste pour y stoquer les ip trouver
     for elt in f: #pour tout element dans f
         a=elt.split(" ") #a est egalau element separer par un espace
@@ -45,9 +45,20 @@ def gene_lat_lon(liste) : #on creer une foncction avec un paramettre pour le cha
         longi=values['lon'] #dans longi on associe la valeur lon du fichier json
         tab.append([ip,lati,longi])#dans le tableau on rajoute les 3 valeur precedent
         print("generation du tableau en cours...\n")
-    print('voici un tableau avec pour chauqe partie l ip la lat et la long : \n')
+    print('voici un tableau avec pour chaque partie l ip la lat et la long : \n')
     print([ip,lati,longi]) 
     return(tab)
+
+
+##################################################################################
+#                         affichage de la carte et placement des ip
+#################################################################################
+
+def create_map(ip) :
+    carte=folium.Map(location=[0, 0]) #creation de la carte ; la partie location sert a s'avoir le pts de creation de la carte
+    for tab in ip : #pour tous les tableau dans le parametre 
+        folium.Marker([43.640512, 5.102072], icon=folium.Icon(color='red')).add_to(carte) #on creer un marker avec dedant la loc un point+sa couleur et on l'ajoute a notre variable carte
+    carte.save('maptest3.html') #la carte est sauvegarder dans un fichier html (si le chemin n'est pas préciser il sera creer dans )
 
 
 
@@ -55,6 +66,8 @@ def gene_lat_lon(liste) : #on creer une foncction avec un paramettre pour le cha
 #                     apl fonction
 ##############################################################################
 
+tabip=gene_lat_lon(shearchip()) #on affecte à la variable tableau ip la fonction d'optention de la latitude et la longitude avec en paramètre la liste des IP et cela nous donnc un tableau comportant pour chaque partie : ip, lat, long
 
-print(gene_lat_lon(shearchip())) #on affiche la fonction de generation latitude longitude avec la fonction ip  en paramètre
+print(tabip) #on affiche la fonction de gération de tableau d'ip creer precedment
 
+print(create_map(tabip)) #on apl la fonction de génération de map avec le tableau générer précédement dans la fonction
