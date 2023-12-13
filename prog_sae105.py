@@ -57,8 +57,9 @@ def gene_lat_lon(liste) : #on creer une foncction avec un paramettre pour le cha
 def create_map(ip) :
     carte=folium.Map(location=[0, 0]) #creation de la carte ; la partie location sert a s'avoir le pts de creation de la carte
     for tab in ip : #pour tous les tableau dans le parametre 
-        folium.Marker([43.640512, 5.102072], icon=folium.Icon(color='red')).add_to(carte) #on creer un marker avec dedant la loc un point+sa couleur et on l'ajoute a notre variable carte
-    carte.save('maptest3.html') #la carte est sauvegarder dans un fichier html (si le chemin n'est pas préciser il sera creer dans )
+        folium.Marker([tab[1], tab[2]], icon=folium.Icon(color='red')).add_to(carte) #on creer un marker avec dedant la loc un point+sa couleur et on l'ajoute a notre variable carte
+        #tabe 1 et tab 2 etant les "sous partie" du tableau qui nous interesse cad lat et long
+    carte.save('maptest5.html') #la carte est sauvegarder dans un fichier html (si le chemin n'est pas préciser il sera creer dans )
 
 
 
