@@ -40,7 +40,21 @@ def ipsansdouble(ipaddr):
     ipaddr=list(ipaddr) #re creer la liste
     print("la liste des ip sans doubons est : \n")
     print(ipaddr)
-    
+    return ipaddr
+
+
+#####################################################################################
+#                       compter le nombre de connexion
+####################################################################################
+
+def nbrcoo(listedoublon, liste): #en paramètre liste sans doublons et avec
+    tab=[] 
+    for elm in liste : #pour tous les element dans  la liste sans doublons
+        a = listedoublon.count(elm) #on compte combien il a d'ip dans la liste avec doubons
+        tab.append(a) #on creer un tableau avec le nombre de count
+    print(tab)
+    return(tab)
+
 
 ##################################################################################
 #                         optention lat, long
@@ -70,11 +84,9 @@ def gene_lat_lon(liste) : #on creer une foncction avec un paramettre pour le cha
 def create_map(ip) :
     carte=folium.Map(location=[0, 0]) #creation de la carte ; la partie location sert a s'avoir le pts de creation de la carte
     for tab in ip : #pour tous les tableau dans le parametre
-        tab=set(tab) #enleve les doublons
-        tab=list(tab) #re creer la list
         folium.Marker([tab[1], tab[2]], icon=folium.Icon(color='red')).add_to(carte) #on creer un marker avec dedant la loc un point+sa couleur et on l'ajoute a notre variable carte
         #tabe 1 et tab 2 etant les "sous partie" du tableau qui nous interesse cad lat et long
-    carte.save('maptest6.html') #la carte est sauvegarder dans un fichier html (si le chemin n'est pas préciser il sera creer dans )
+    carte.save('maptest7.html') #la carte est sauvegarder dans un fichier html (si le chemin n'est pas préciser il sera creer dans )
 
 
 ##################################################################################
@@ -82,8 +94,8 @@ def create_map(ip) :
 #################################################################################
 
 def graph_top10() :
-    x = np.array(["A", "B", "C", "D"])
-    y = np.array([3, 8, 1, 10])
+    x = np.array(ipsansdouble(shearchip()))
+    y = np.array(nbrcoo(shearchip(), ipsansdouble(shearchip())))
     
     plt.bar(x, y, color = "red")
     plt.show()
@@ -93,12 +105,14 @@ def graph_top10() :
 ##############################################################################
 
 
-#tabip=gene_lat_lon(shearchip()) #on affecte à la variable tableau ip la fonction d'optention de la latitude et la longitude avec en paramètre la liste des IP et cela nous donnc un tableau comportant pour chaque partie : ip, lat, long
+tabip=gene_lat_lon(shearchip()) #on affecte à la variable tableau ip la fonction d'optention de la latitude et la longitude avec en paramètre la liste des IP et cela nous donnc un tableau comportant pour chaque partie : ip, lat, long
+print(tabip) #on affiche la fonction de gération de tableau d'ip creer precedment
 
-#print(tabip) #on affiche la fonction de gération de tableau d'ip creer precedment
 
-#print(create_map(tabip)) #on apl la fonction de génération de map avec le tableau générer précédement dans la fonction
+cartepoint=create_map(tabip) #on associe la creation d'une carte a la fonction de génération latitude et longitude
+print(cartepoint)
 
-#graph_top10()
 
-ipsansdouble(shearchip())
+#on apelle la fonction de génération du graph
+graph_top10()
+
