@@ -12,22 +12,35 @@ os.environ["HTTP_PROXY"] = "http://cache.univ-pau.fr:3128"
 os.environ["HTTPS_PROXY"] = "https://cache.univ-pau.fr:3128"
 
 import folium #import de la librairie permetant de générer la carte
+import matplotlib.pyplot as plt #librairie pour des graphes
+import numpy as np
 
 
 #####################################################################################
-#                       Generation d'ip
+#                       Generation liste d'ip
 ####################################################################################
 
 def shearchip():
     f = open("controller_reduit.log", "r") #on ouvre le fichier en 1 et on "r" lis le fichier
     listead=[] #on creer une liste pour y stoquer les ip trouver
     for elt in f: #pour tout element dans f
-        a=elt.split(" ") #a est egalau element separer par un espace
+        a=elt.split(" ") #a est = aux elements separer par un espace
         listead.append(a[0]) #on ajoute a la liste trouver précédement les element en premier que l'on a separer
     print("la liste des ip est : \n")
     print(listead) #affichage de la liste ip mise a jours
     return listead #renvois la valeur en dehor de la fontion
 
+
+#####################################################################################
+#                       Generation liste d'ip sans doublon
+####################################################################################
+
+def ipsansdouble(ipaddr):
+    ipaddr=set(ipaddr) #eleve les doublons dans la liste d'ip
+    ipaddr=list(ipaddr) #re creer la liste
+    print("la liste des ip sans doubons est : \n")
+    print(ipaddr)
+    
 
 ##################################################################################
 #                         optention lat, long
@@ -56,19 +69,36 @@ def gene_lat_lon(liste) : #on creer une foncction avec un paramettre pour le cha
 
 def create_map(ip) :
     carte=folium.Map(location=[0, 0]) #creation de la carte ; la partie location sert a s'avoir le pts de creation de la carte
-    for tab in ip : #pour tous les tableau dans le parametre 
+    for tab in ip : #pour tous les tableau dans le parametre
+        tab=set(tab) #enleve les doublons
+        tab=list(tab) #re creer la list
         folium.Marker([tab[1], tab[2]], icon=folium.Icon(color='red')).add_to(carte) #on creer un marker avec dedant la loc un point+sa couleur et on l'ajoute a notre variable carte
         #tabe 1 et tab 2 etant les "sous partie" du tableau qui nous interesse cad lat et long
-    carte.save('maptest5.html') #la carte est sauvegarder dans un fichier html (si le chemin n'est pas préciser il sera creer dans )
+    carte.save('maptest6.html') #la carte est sauvegarder dans un fichier html (si le chemin n'est pas préciser il sera creer dans )
 
 
+##################################################################################
+#                         génération de graph
+#################################################################################
+
+def graph_top10() :
+    x = np.array(["A", "B", "C", "D"])
+    y = np.array([3, 8, 1, 10])
+    
+    plt.bar(x, y, color = "red")
+    plt.show()
 
 ###############################################################################
 #                     apl fonction
 ##############################################################################
 
-tabip=gene_lat_lon(shearchip()) #on affecte à la variable tableau ip la fonction d'optention de la latitude et la longitude avec en paramètre la liste des IP et cela nous donnc un tableau comportant pour chaque partie : ip, lat, long
 
-print(tabip) #on affiche la fonction de gération de tableau d'ip creer precedment
+#tabip=gene_lat_lon(shearchip()) #on affecte à la variable tableau ip la fonction d'optention de la latitude et la longitude avec en paramètre la liste des IP et cela nous donnc un tableau comportant pour chaque partie : ip, lat, long
 
-print(create_map(tabip)) #on apl la fonction de génération de map avec le tableau générer précédement dans la fonction
+#print(tabip) #on affiche la fonction de gération de tableau d'ip creer precedment
+
+#print(create_map(tabip)) #on apl la fonction de génération de map avec le tableau générer précédement dans la fonction
+
+#graph_top10()
+
+ipsansdouble(shearchip())
