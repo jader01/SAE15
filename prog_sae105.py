@@ -86,19 +86,48 @@ def create_map(ip) :
     for tab in ip : #pour tous les tableau dans le parametre
         folium.Marker([tab[1], tab[2]], icon=folium.Icon(color='red')).add_to(carte) #on creer un marker avec dedant la loc un point+sa couleur et on l'ajoute a notre variable carte
         #tabe 1 et tab 2 etant les "sous partie" du tableau qui nous interesse cad lat et long
-    carte.save('maptest7.html') #la carte est sauvegarder dans un fichier html (si le chemin n'est pas préciser il sera creer dans )
+    carte.save('maptest8.html') #la carte est sauvegarder dans un fichier html (si le chemin n'est pas préciser il sera creer dans )
 
 
 ##################################################################################
-#                         génération de graph
+#                 génération de graph ip en fonction du nbr de connection
 #################################################################################
 
-def graph_top10() :
+def graph_ip_nbrco() :
     x = np.array(ipsansdouble(shearchip()))
     y = np.array(nbrcoo(shearchip(), ipsansdouble(shearchip())))
     
     plt.bar(x, y, color = "red")
     plt.show()
+
+#####################################################################################
+#                       Generation liste des dates
+####################################################################################
+
+def shearchdate():
+    f = open("controller_reduit.log", "r") #on ouvre le fichier en 1 et on "r" lis le fichier
+    dates=[] #on creer une liste pour y stoquer les dates trouver
+    for elt in f: #pour tout element dans f
+        a=elt.split(" ") #a est = aux elements separer par un espace
+        dates.append(a[3]) #on ajoute a la liste trouver précédement le troisème élément
+    print("la liste des dates est : \n")
+    print(dates) #affichage de la liste des dates mise a jours
+    return dates 
+
+
+
+##################################################################################
+#                 génération de graph nbr de co en fonction du temps
+#################################################################################
+
+def graph_tps_nbrco():
+    xpoints = np.array(nbrcoo(shearchip(), ipsansdouble(shearchip())))
+    ypoints = np.array(shearchdate())
+    print("xpoints=",xpoints)
+    print("ypoints=",ypoints)
+    plt.plot(xpoints, ypoints)
+    plt.show()
+
 
 ###############################################################################
 #                     apl fonction
@@ -113,6 +142,7 @@ cartepoint=create_map(tabip) #on associe la creation d'une carte a la fonction d
 print(cartepoint)
 
 
-#on apelle la fonction de génération du graph
-graph_top10()
+graph_ip_nbrco() #on apelle la fonction de génération du graph
 
+
+#graph_tps_nbrco()
