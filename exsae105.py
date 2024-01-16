@@ -12,8 +12,6 @@ def affichage():
         liste.append(elmgauche[0]) #on ajoute a la liste trouver précédement les element en premier que l'on a separer
         
         elmligne=elt.split("\n") #a est = aux elements separer par un espace
-
-        
         print(elmgauche[0],"=", elmligne)
 
 
