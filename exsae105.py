@@ -1,4 +1,21 @@
 #####################################################################################
+#                       import des librairie utiles
+####################################################################################
+
+import urllib.request #api de recup liste
+import json #pour utiliser un fichier json
+import time #pour faire des pause sinon l'api oskour
+
+#import du proxy
+import os #pour utiliser le proxy  
+os.environ["HTTP_PROXY"] = "http://cache.univ-pau.fr:3128" 
+os.environ["HTTPS_PROXY"] = "https://cache.univ-pau.fr:3128"
+
+#import folium #import de la librairie permetant de générer la carte
+import matplotlib.pyplot as plt #librairie pour des graphes
+import numpy as np
+
+#####################################################################################
 #                       sortie des infos
 ####################################################################################
 
@@ -8,14 +25,13 @@ def affichage():
     
     for elt in f: #pour tout element dans f
         elmgauche=elt.split(";")
-        
+    
         liste.append(elmgauche[0]) #on ajoute a la liste trouver précédement les element en premier que l'on a separer
+    
         
         elmligne=elt.split("\n") #a est = aux elements separer par un espace
 
 
-
-        
         print(elmgauche[0],"=", elmligne)
 
 
@@ -49,6 +65,17 @@ def nbrmarque() :
         liste.append(x)
     print("nbr :")
     print(liste) #dans le graph : ord
+
+
+    #le graph :
+    xpoints= np.array(marquesansdouble[1:]) #[1:] = a partir de l'élement 2 d'indice 1 jusqu'a la fin peut importe la fin (donc enlève math)
+    ypoints= np.array(liste[1:])
+    plt.bar(xpoints, ypoints)
+    plt.show()    
+
+
+
+
 
 
 
