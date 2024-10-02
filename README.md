@@ -2,7 +2,7 @@
 
 ## Objectif du projet
 
-Le but de cette SAE était, dans un premier temps, de réaliser une **analyse des données** contenues dans un fichier de log afin de comprendre sa structure. Ce fichier log contenait des informations sur les ventes d'un site d'albums. 
+Le but de cette SAE était, dans un premier temps, de réaliser une **analyse des données** contenues dans un fichier de log afin de comprendre sa structure. Ce fichier log contenait des informations sur les ventes d'un site d'albums. Pour au final extraire les données via python et faire un graphique.
 
 ## Étapes principales
 
